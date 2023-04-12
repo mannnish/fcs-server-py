@@ -2,8 +2,8 @@ from flask import *
 import json, csv
 import numpy as np, pandas as pd
 # use scikit-learn
-# from sklearn import linear_model
-# from sklearn.model_selection import train_test_split
+from sklearn import linear_model
+from sklearn.model_selection import train_test_split
 app = Flask(__name__)
 
 print("server started")
@@ -18,28 +18,29 @@ def home():
 
 @app.route('/v', methods=['GET'])
 def version():
-    message = {'version' : '1.0.8'}
+    message = {'version' : '1.1.0', 'desc' : 'sklearn imported and read csv'}
     json_dump = json.dumps(message)
     response = make_response(json_dump)
     response.headers['Content-Type'] = 'application/json'
     return response
 
-# @app.route('/py', methods=['GET'])
-# def py():
-#     countryStr = str(request.args.get('country')).lower()
-#     cropStr = request.args.get('crop')
-#     yearPredStart = int(request.args.get('start'))
-#     yearPredEnd = int(request.args.get('end')) + 1
-#     temperatureMap = {}
-#     with open("{a}_temp.csv".format(a=countryStr), 'r') as f:
-#         for line in csv.reader(f):
-#             temperatureMap[line[0]] = line[1]
-#     predictedTempList = []
-#     resTemp = []
-#     for yearPred in range(yearPredStart, yearPredEnd):
-#         predictedTempList.append([yearPred, float(temperatureMap[str(yearPred)])])
-#         resTemp.append(float(temperatureMap[str(yearPred)]))
-#     dfc = pd.read_csv("{a}_crop.csv".format(a=countryStr))
+@app.route('/py', methods=['GET'])
+def py():
+    countryStr = str(request.args.get('country')).lower()
+    cropStr = request.args.get('crop')
+    yearPredStart = int(request.args.get('start'))
+    yearPredEnd = int(request.args.get('end')) + 1
+    temperatureMap = {}
+    with open("{a}_temp.csv".format(a=countryStr), 'r') as f:
+        for line in csv.reader(f):
+            temperatureMap[line[0]] = line[1]
+    predictedTempList = []
+    resTemp = []
+    for yearPred in range(yearPredStart, yearPredEnd):
+        predictedTempList.append([yearPred, float(temperatureMap[str(yearPred)])])
+        resTemp.append(float(temperatureMap[str(yearPred)]))
+    
+    # dfc = pd.read_csv("{a}_crop.csv".format(a=countryStr))
 #     dfc.columns = ['Entity','Code','Year','Temp','Wheat','Rice','Bananas','Maize','Soybeans','Potatoes','Beans','Peas','Cassava','Cocoa','Barley']
 #     # lr = lrBasic(dfc, cropStr)
 #     X = dfc[['Year', 'Temp']]
@@ -48,18 +49,19 @@ def version():
 #     lr = linear_model.LinearRegression()
 #     lr.fit(x_train.values, y_train)
 #     resProd = lr.predict(predictedTempList)
-#     message = {
-#         'country' : countryStr, 
-#         'crop' : cropStr, 
-#         'start' : yearPredStart, 
-#         'end' : yearPredEnd - 1, 
-#         'temperature' : resTemp, 
-#         'production' : resProd.tolist()
-#         }
-#     json_dump = json.dumps(message)
-#     response = make_response(json_dump)
-#     response.headers['Content-Type'] = 'application/json'
-#     return response
+    message = {
+        'country' : countryStr, 
+        'crop' : cropStr, 
+        'start' : yearPredStart, 
+        'end' : yearPredEnd - 1, 
+        'temperature' : resTemp, 
+        'message' : 'sklearn imported and read csv'
+        # 'production' : resProd.tolist()
+        }
+    json_dump = json.dumps(message)
+    response = make_response(json_dump)
+    response.headers['Content-Type'] = 'application/json'
+    return response
 
 if __name__ == '__main__':
     print("server running")

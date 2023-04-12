@@ -18,7 +18,7 @@ def home():
 
 @app.route('/v', methods=['GET'])
 def version():
-    message = {'version' : '1.1.0', 'desc' : 'sklearn imported and read csv'}
+    message = {'version' : '1.1.1', 'desc' : 'prediction check'}
     json_dump = json.dumps(message)
     response = make_response(json_dump)
     response.headers['Content-Type'] = 'application/json'
@@ -40,23 +40,22 @@ def py():
         predictedTempList.append([yearPred, float(temperatureMap[str(yearPred)])])
         resTemp.append(float(temperatureMap[str(yearPred)]))
     
-    # dfc = pd.read_csv("{a}_crop.csv".format(a=countryStr))
-#     dfc.columns = ['Entity','Code','Year','Temp','Wheat','Rice','Bananas','Maize','Soybeans','Potatoes','Beans','Peas','Cassava','Cocoa','Barley']
-#     # lr = lrBasic(dfc, cropStr)
-#     X = dfc[['Year', 'Temp']]
-#     y = dfc[cropStr]
-#     x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.1, shuffle=False)
-#     lr = linear_model.LinearRegression()
-#     lr.fit(x_train.values, y_train)
-#     resProd = lr.predict(predictedTempList)
+    dfc = pd.read_csv("{a}_crop.csv".format(a=countryStr))
+    dfc.columns = ['Entity','Code','Year','Temp','Wheat','Rice','Bananas','Maize','Soybeans','Potatoes','Beans','Peas','Cassava','Cocoa','Barley']
+    # lr = lrBasic(dfc, cropStr)
+    X = dfc[['Year', 'Temp']]
+    y = dfc[cropStr]
+    x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.1, shuffle=False)
+    lr = linear_model.LinearRegression()
+    lr.fit(x_train.values, y_train)
+    resProd = lr.predict(predictedTempList)
     message = {
         'country' : countryStr, 
         'crop' : cropStr, 
         'start' : yearPredStart, 
         'end' : yearPredEnd - 1, 
-        'temperature' : resTemp, 
-        'message' : 'sklearn imported and read csv'
-        # 'production' : resProd.tolist()
+        'temperature' : resTemp,
+        'production' : resProd.tolist()
         }
     json_dump = json.dumps(message)
     response = make_response(json_dump)

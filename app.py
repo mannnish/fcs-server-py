@@ -18,7 +18,7 @@ def home():
 
 @app.route('/v', methods=['GET'])
 def version():
-    message = {'version' : '1.0.6'}
+    message = {'version' : '1.0.7'}
     json_dump = json.dumps(message)
     response = make_response(json_dump)
     response.headers['Content-Type'] = 'application/json'
@@ -63,4 +63,5 @@ def version():
 
 if __name__ == '__main__':
     print("server running")
-    app.run(port=3000)
+    app.run()
+    # app.run(port=3000)

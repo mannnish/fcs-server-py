@@ -17,7 +17,7 @@ def home():
 
 @app.route('/v', methods=['GET'])
 def version():
-    message = {'version' : '1.0.2'}
+    message = {'version' : '1.0.3'}
     json_dump = json.dumps(message)
     response = make_response(json_dump)
     response.headers['Content-Type'] = 'application/json'

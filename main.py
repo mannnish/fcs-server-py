@@ -5,6 +5,8 @@ from sklearn import linear_model
 from sklearn.model_selection import train_test_split
 app = Flask(__name__)
 
+print("server started")
+
 @app.route('/', methods=['GET'])
 def home():
     message = {'status' : 200, 'message' : 'Running'}
@@ -15,7 +17,7 @@ def home():
 
 @app.route('/v', methods=['GET'])
 def version():
-    message = {'version' : '1.0.1'}
+    message = {'version' : '1.0.2'}
     json_dump = json.dumps(message)
     response = make_response(json_dump)
     response.headers['Content-Type'] = 'application/json'
@@ -59,4 +61,5 @@ def py():
     return response
 
 if __name__ == '__main__':
+    print("server running")
     app.run(port=3000)

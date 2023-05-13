@@ -2,10 +2,14 @@
 @base = https://fcs-server-py.onrender.com/
 @country = India
 @crop = Wheat
-@start = 2022
-@end = 2023
+@start = 2024
+@end = 2030
 
 get {{base}}
+
+###
+get {{base}}/v
+
 
 ###
 get {{base}}/py?country={{country}}&crop={{crop}}&start={{start}}&end={{end}}

@@ -31,7 +31,7 @@ def py():
     yearPredStart = int(request.args.get('start'))
     yearPredEnd = int(request.args.get('end')) + 1
     temperatureMap = {}
-    with open("{a}_temp.csv".format(a=countryStr), 'r') as f:
+    with open("data/{a}_temp.csv".format(a=countryStr), 'r') as f:
         for line in csv.reader(f):
             temperatureMap[line[0]] = line[1]
     predictedTempList = []
@@ -40,7 +40,7 @@ def py():
         predictedTempList.append([yearPred, float(temperatureMap[str(yearPred)])])
         resTemp.append(float(temperatureMap[str(yearPred)]))
     
-    dfc = pd.read_csv("{a}_crop.csv".format(a=countryStr))
+    dfc = pd.read_csv("data/{a}_crop.csv".format(a=countryStr))
     dfc.columns = ['Entity','Code','Year','Temp','Wheat','Rice','Bananas','Maize','Soybeans','Potatoes','Beans','Peas','Cassava','Cocoa','Barley']
     # lr = lrBasic(dfc, cropStr)
     X = dfc[['Year', 'Temp']]

@@ -1,14 +1,11 @@
-# @base = http://localhost:3000
-@base = https://fcs-server-py.onrender.com/
-@country = India
+@base = http://localhost:5000
+# @base = https://fcs-server-py.onrender.com/
+@country = Australia
 @crop = Wheat
 @start = 2024
 @end = 2030
 
 get {{base}}
-
-###
-get {{base}}/v
 
 
 ###

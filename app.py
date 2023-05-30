@@ -39,7 +39,7 @@ def py():
     x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.1, shuffle=False)
     lr = linear_model.LinearRegression()
     lr.fit(x_train.values, y_train)
-    resProd = lr.predict(predictedTempList)
+    resProd = lr.predict(predictedTempList) 
     message = {
         'country' : countryStr, 
         'crop' : cropStr, 

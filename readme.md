@@ -1,29 +1,17 @@
-### tasks
-- [ ] [temperature data- country wise](https://climateknowledgeportal.worldbank.org/download-data)
-    - for data from 1960s to 2021, check [this](py/temp_prev_data.png)
-    - for predicted data from, check [this](py/temp_pred_data.png)
-    - merge these two sheets and create one csv
-        - delete rows with data till 1961
-        - copy rows from 2022 to 2100 and paste it in the pred_document
-        - drop first row and all the country-columns so that only year and temperature remains
-- [ ] [get crop datasheet](https://docs.google.com/spreadsheets/d/1qPP5FzFYa5JpMEu8WhVvxF2-kvKqf_0Qg7zEU55pdf0/edit#gid=441730022) with that country 
-    - enable filter, copy all the present cells and then paste it in a new sheet
-    - add a column before 'Wheat' and paste the respective observed Temperatures
+### script.py
+Seaborn graph for China's wheat crop prediction till 2040
+<img src="./screenshots/Screenshot 2023-08-02 at 11.22.11 PM.png">
+<img src="./screenshots/Screenshot 2023-08-02 at 11.25.13 PM.png">
 
-
-### constraints
-- only year greater than 2021 and less than 2100
-- i will give the list of countries and list of crops 
-- an array will be returned with the predicted values
-
+### json data from server
+<img src="./screenshots/carbon.png">
 
 ### installation and setup
 1.  dev : to install python3 and pip3 and run
     ```sh
     sudo apt-get python3
     sudo apt install python3-pip
-    pip install pandas numpy tensorflow sklearn
-    pip3 install -U scikit-learn scipy matplotlib seaborn
+    pip install -r requirements.txt
 
     flask run
     ```
